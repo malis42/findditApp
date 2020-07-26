@@ -1,20 +1,21 @@
 import redditApi from "./redditApi";
 
-const searchForm = document.getElementById('search-form');
-const searchInput = document.getElementById('search-input');
+const searchPostForm = document.getElementById('search-post-form');
+const searchPostInput = document.getElementById('search-post-input');
 
 // Form event listener
-searchForm.addEventListener('submit', ev => {
+searchPostForm.addEventListener('submit', ev => {
     // Get search term string, sort-by condition and limit
-    const searchTerm = searchInput.value;
-    const searchSortBy = document.querySelector('input[name="sortby"]:checked').value;
-    const searchLimit = document.getElementById("limit").value;
+    const searchTerm = searchPostInput.value;
+    const searchSortBy = document.querySelector('input[name="post-sortby"]:checked').value;
+    const searchLimit = document.getElementById("search-post-limit").value;
+    console.log(searchPostInput.value);
 
     // Validate input and clear it after error message pops up
     if(searchTerm === ''){
         showMessage('Please add a search term', 'alert-danger');
     }
-    searchInput.value = "";
+    searchPostInput.value = "";
 
     // Search through reddit
     redditApi.searchPost(searchTerm, searchLimit, searchSortBy)
@@ -32,7 +33,7 @@ searchForm.addEventListener('submit', ev => {
 
                 output += `
                     <div class="card">
-                      <img src="${postImage}" class="card-img-top" alt="...">
+                      <img src="${postImage}" class="card-img-top">
                       <div class="card-body">
                         <h5 class="card-title">${post.title}</h5>
                         <p class="card-text">
@@ -48,7 +49,7 @@ searchForm.addEventListener('submit', ev => {
             });
 
             output += '</div>';
-            document.getElementById('results').innerHTML = output;
+            document.getElementById('search-post-results').innerHTML = output;
         });
 
 

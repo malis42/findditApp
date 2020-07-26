@@ -18,73 +18,75 @@
     </div>
 </nav>
 
-    <div class="tab">
-        <button class="tablinks" onclick="openSearchTab(event, 'post')">Search for post</button>
-        <button class="tablinks" onclick="openSearchTab(event, 'subreddit')">Search for subreddit</button>
-        <button class="tablinks" onclick="openSearchTab(event, 'user')">Search for user</button>
-    </div>
+    <div class="container">
+        <div class="tab">
+            <button class="tablinks" onclick="openSearchTab(event, 'post')">Search for post</button>
+            <button class="tablinks" onclick="openSearchTab(event, 'subreddit')">Search for subreddit</button>
+            <button class="tablinks" onclick="openSearchTab(event, 'user')">Search for user</button>
+        </div>
 
-    <!-- Search for post tab -->
-    <div id="post" class="tabcontent">
-        <div id="search-container" class="container">
-            <div id="search" class="card card-body bg-light mb-2">
-                <h4>Search Reddit</h4>
-                <form id="search-form">
-                    <div class="form-group">
-                        <input type="text" id="search-input" class="form-control mb-3" placeholder="Search Term...">
-                    </div>
-                    <div style="display: inline-block;">Sort By:</div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input ml-2" type="radio" name="sortby" value="relevance" checked="">
-                        <label class="form-check-label">
-                            Relevance
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input ml-2" type="radio" name="sortby" value="hot">
-                        <label class="form-check-label">
-                            Hot
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input ml-2" type="radio" name="sortby" value="top">
-                        <label class="form-check-label">
-                            Top
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="sortby" value="new">
-                        <label class="form-check-label">
-                            Latest
-                        </label>
-                    </div>
-                    <h5 class="mt-2">Limit: </h5>
-                    <div class="form-group">
-                        <select name="limit" id="limit" class="form-control">
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="25" selected="">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-dark btn-block mt-4">Search</button>
-                </form>
+        <!-- Search for post tab -->
+        <div id="post" class="tabcontent">
+            <div id="search-post-container" class="container">
+                <div id="search-post" class="card card-body bg-light mb-2">
+                    <h4>Search Reddit for posts</h4>
+                    <form id="search-post-form">
+                        <div class="form-group">
+                            <input type="text" id="search-post-input" class="form-control mb-3" placeholder="Search Term...">
+                        </div>
+                        <div style="display: inline-block;">Sort By:</div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input ml-2" type="radio" name="post-sortby" value="relevance" checked="">
+                            <label class="form-check-label">
+                                Relevance
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input ml-2" type="radio" name="post-sortby" value="hot">
+                            <label class="form-check-label">
+                                Hot
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input ml-2" type="radio" name="post-sortby" value="top">
+                            <label class="form-check-label">
+                                Top
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="post-sortby" value="new">
+                            <label class="form-check-label">
+                                Latest
+                            </label>
+                        </div>
+                        <h5 class="mt-2">Limit: </h5>
+                        <div class="form-group">
+                            <select name="limit" id="search-post-limit" class="form-control">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25" selected="">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-dark btn-block mt-4">Search</button>
+                    </form>
+                </div>
+                <div id="search-post-results"></div>
             </div>
-            <div id="results"></div>
-            </div>
+        </div>
+
+        <!-- Search for subreddit tab -->
+        <div id="subreddit" class="tabcontent">
+
+        </div>
+
+        <!-- Search for user tab -->
+        <div id="user" class="tabcontent">
+
+        </div>
+
     </div>
-
-    <!-- Search for subreddit tab -->
-    <div id="subreddit" class="tabcontent">
-
-    </div>
-
-    <!-- Search for user tab -->
-    <div id="user" class="tabcontent">
-
-    </div>
-
 
 
 <script src="/findditApp.e31bb0bc.js" type="text/javascript"></script>

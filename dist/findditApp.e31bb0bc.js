@@ -136,6 +136,9 @@ var _default = {
       return console.log(error);
     });
   }
+  /*searchSubreddit: function (searchTerm, searchLimit) {
+   }*/
+
 };
 exports.default = _default;
 },{}],"index.js":[function(require,module,exports) {
@@ -145,20 +148,21 @@ var _redditApi = _interopRequireDefault(require("./redditApi"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var searchForm = document.getElementById('search-form');
-var searchInput = document.getElementById('search-input'); // Form event listener
+var searchPostForm = document.getElementById('search-post-form');
+var searchPostInput = document.getElementById('search-post-input'); // Form event listener
 
-searchForm.addEventListener('submit', function (ev) {
+searchPostForm.addEventListener('submit', function (ev) {
   // Get search term string, sort-by condition and limit
-  var searchTerm = searchInput.value;
-  var searchSortBy = document.querySelector('input[name="sortby"]:checked').value;
-  var searchLimit = document.getElementById("limit").value; // Validate input and clear it after error message pops up
+  var searchTerm = searchPostInput.value;
+  var searchSortBy = document.querySelector('input[name="post-sortby"]:checked').value;
+  var searchLimit = document.getElementById("search-post-limit").value;
+  console.log(searchPostInput.value); // Validate input and clear it after error message pops up
 
   if (searchTerm === '') {
     showMessage('Please add a search term', 'alert-danger');
   }
 
-  searchInput.value = ""; // Search through reddit
+  searchPostInput.value = ""; // Search through reddit
 
   _redditApi.default.searchPost(searchTerm, searchLimit, searchSortBy).then(function (results) {
     var output = '<div class="card-columns">';
@@ -167,10 +171,10 @@ searchForm.addEventListener('submit', function (ev) {
     results.forEach(function (post) {
       // Check for image
       var postImage = post.preview ? post.preview.images[0].source.url : defaultImage;
-      output += "\n                    <div class=\"card\">\n                      <img src=\"".concat(postImage, "\" class=\"card-img-top\" alt=\"...\">\n                      <div class=\"card-body\">\n                        <h5 class=\"card-title\">").concat(post.title, "</h5>\n                        <p class=\"card-text\">\n                            ").concat(truncateText(post.selftext, 100), "\n                        </p>\n                        <a href=\"").concat(post.url, "\" target=\"_blank\" class=\"btn btn-primary\">Read more</a>\n                        <hr>\n                        <span class=\"badge badge-secondary\">Subreddit: ").concat(post.subreddit, "</span>\n                        <span class=\"badge badge-dark\">Score: ").concat(post.score, "</span>\n                      </div>\n                    </div>\n                ");
+      output += "\n                    <div class=\"card\">\n                      <img src=\"".concat(postImage, "\" class=\"card-img-top\">\n                      <div class=\"card-body\">\n                        <h5 class=\"card-title\">").concat(post.title, "</h5>\n                        <p class=\"card-text\">\n                            ").concat(truncateText(post.selftext, 100), "\n                        </p>\n                        <a href=\"").concat(post.url, "\" target=\"_blank\" class=\"btn btn-primary\">Read more</a>\n                        <hr>\n                        <span class=\"badge badge-secondary\">Subreddit: ").concat(post.subreddit, "</span>\n                        <span class=\"badge badge-dark\">Score: ").concat(post.score, "</span>\n                      </div>\n                    </div>\n                ");
     });
     output += '</div>';
-    document.getElementById('results').innerHTML = output;
+    document.getElementById('search-post-results').innerHTML = output;
   });
 
   ev.preventDefault();
