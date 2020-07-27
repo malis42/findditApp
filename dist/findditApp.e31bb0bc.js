@@ -136,7 +136,24 @@ var _default = {
       return console.log(error);
     });
   },
-  searchSubreddit: function searchSubreddit(searchTerm, searchLimit) {}
+  searchSubreddit: function searchSubreddit(searchTerm, searchNsfw) {
+    var params = {
+      query: searchTerm,
+      include_over_18: searchNsfw
+    };
+    var x = fetch("http://www.reddit.com/api/search_subreddits.json", {
+      method: 'POST',
+      // mode: 'no-cors',
+      body: JSON.stringify(params)
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      return data;
+    }).catch(function (error) {
+      return console.log(error);
+    });
+    console.log(x); // console.log(searchTerm + searchNsfw)
+  }
 };
 exports.default = _default;
 },{}],"index.js":[function(require,module,exports) {
@@ -184,13 +201,15 @@ searchPostForm.addEventListener('submit', function (ev) {
 searchSubredditForm.addEventListener('submit', function (ev) {
   // get search term string, and permission to search 18+ subreddits
   var searchTerm = searchSubredditInput.value;
-  var searchNsfw = document.querySelector('input[name="subreddit-nsfw"]:checked');
+  var searchNsfw = document.querySelector('input[type="checkbox"]').checked;
 
   if (searchTerm === '') {
     showMessage('Please add a search term', 'alert-danger', 'subreddit', 'search-subreddit-container');
   }
 
   searchSubredditInput.value = ""; //Search through reddit for subreddits
+
+  _redditApi.default.searchSubreddit(searchTerm, searchNsfw);
 
   ev.preventDefault();
 }); // Show message function

@@ -66,7 +66,7 @@ searchSubredditForm.addEventListener('submit', ev =>{
 
     // get search term string, and permission to search 18+ subreddits
     const searchTerm = searchSubredditInput.value;
-    const searchNsfw = document.querySelector('input[name="subreddit-nsfw"]:checked');
+    const searchNsfw = document.querySelector('input[type="checkbox"]').checked;
 
     if(searchTerm === ''){
         showMessage('Please add a search term', 'alert-danger', 'subreddit', 'search-subreddit-container');
@@ -74,6 +74,8 @@ searchSubredditForm.addEventListener('submit', ev =>{
     searchSubredditInput.value = "";
 
     //Search through reddit for subreddits
+    redditApi.searchSubreddit(searchTerm, searchNsfw);
+
 
     ev.preventDefault();
 });
