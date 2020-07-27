@@ -18,16 +18,16 @@
     </div>
 </nav>
 
-    <div class="container">
-        <div class="tab">
-            <button class="tablinks" onclick="openSearchTab(event, 'post')">Search for post</button>
-            <button class="tablinks" onclick="openSearchTab(event, 'subreddit')">Search for subreddit</button>
-            <button class="tablinks" onclick="openSearchTab(event, 'user')">Search for user</button>
+    <div class="container" id="main-container">
+        <div class="tab" id="search-tabs">
+            <button class="tablinks" onclick="openSearchTab(event, 'post')" id="post-tab">Search for post</button>
+            <button class="tablinks" onclick="openSearchTab(event, 'subreddit')" id="subreddit-tab">Search for subreddit</button>
+            <button class="tablinks" onclick="openSearchTab(event, 'user')" id="user-tab">Search for user</button>
         </div>
 
         <!-- Search for post tab -->
         <div id="post" class="tabcontent">
-            <div id="search-post-container" class="container">
+            <div class="container" id="search-post-container">
                 <div id="search-post" class="card card-body bg-light mb-2">
                     <h4>Search Reddit for posts</h4>
                     <form id="search-post-form">
@@ -78,7 +78,30 @@
 
         <!-- Search for subreddit tab -->
         <div id="subreddit" class="tabcontent">
-
+            <div class="container" id="search-subreddit-container">
+                <div id="search-subreddit" class="card card-body bg-light mb-2">
+                    <h4>Search Reddit for subreddits</h4>
+                        <form id="search-subreddit-form">
+                        <div class="form-group">
+                            <input type="text" id="search-subreddit-input" class="form-control mb-3" placeholder="Search term...">
+                        </div>
+                        <div style="display: inline-block;">Include 18+ subreddits?</div>
+                        <div class="form-check form-check-inline mt-1">
+                            <input class="form-check-input ml-2" type="radio" name="subreddit-nsfw" value="no" checked="">
+                            <label class="form-check-label">
+                                No
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input ml-2" type="radio" name="subreddit-nsfw" value="yes">
+                            <label class="form-check-label">
+                                Yes
+                            </label>
+                        </div>
+                            <button type="submit" class="btn btn-dark btn-block mt-4">Search</button>
+                        </form>
+                </div>
+            </div>
         </div>
 
         <!-- Search for user tab -->
@@ -90,7 +113,14 @@
 
 
 <script src="/findditApp.e31bb0bc.js" type="text/javascript"></script>
-<script>document.getElementsByClassName('tablinks')[0].click();
+<script>var currentTab = sessionStorage.getItem('currentTab');
+console.log(currentTab);
+
+if (!currentTab) {
+  document.getElementsByClassName('tablinks')[0].click();
+} else {
+  document.getElementById(currentTab).click();
+}
 
 function openSearchTab(evt, searchChoice) {
   // Declare all variables
@@ -111,7 +141,9 @@ function openSearchTab(evt, searchChoice) {
 
 
   document.getElementById(searchChoice).style.display = "block";
-  evt.currentTarget.className += " active";
+  evt.currentTarget.className += " active"; // Set global variable of current clicked tab
+
+  sessionStorage.setItem('currentTab', searchChoice + '-tab');
 }</script>
 </body>
 </html>

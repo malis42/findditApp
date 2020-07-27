@@ -135,10 +135,8 @@ var _default = {
     }).catch(function (error) {
       return console.log(error);
     });
-  }
-  /*searchSubreddit: function (searchTerm, searchLimit) {
-   }*/
-
+  },
+  searchSubreddit: function searchSubreddit(searchTerm, searchLimit) {}
 };
 exports.default = _default;
 },{}],"index.js":[function(require,module,exports) {
@@ -148,18 +146,21 @@ var _redditApi = _interopRequireDefault(require("./redditApi"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// Search posts constants
 var searchPostForm = document.getElementById('search-post-form');
-var searchPostInput = document.getElementById('search-post-input'); // Form event listener
+var searchPostInput = document.getElementById('search-post-input'); // Search subreddits constants
+
+var searchSubredditForm = document.getElementById('search-subreddit-form');
+var searchSubredditInput = document.getElementById('search-subreddit-input'); // Search post form event listener
 
 searchPostForm.addEventListener('submit', function (ev) {
   // Get search term string, sort-by condition and limit
   var searchTerm = searchPostInput.value;
   var searchSortBy = document.querySelector('input[name="post-sortby"]:checked').value;
-  var searchLimit = document.getElementById("search-post-limit").value;
-  console.log(searchPostInput.value); // Validate input and clear it after error message pops up
+  var searchLimit = document.getElementById("search-post-limit").value; // Validate input and clear it after error message pops up
 
   if (searchTerm === '') {
-    showMessage('Please add a search term', 'alert-danger');
+    showMessage('Please add a search term', 'alert-danger', 'post', 'search-post-container');
   }
 
   searchPostInput.value = ""; // Search through reddit
@@ -178,16 +179,30 @@ searchPostForm.addEventListener('submit', function (ev) {
   });
 
   ev.preventDefault();
+}); // Search subreddit form event listener
+
+searchSubredditForm.addEventListener('submit', function (ev) {
+  // get search term string, and permission to search 18+ subreddits
+  var searchTerm = searchSubredditInput.value;
+  var searchNsfw = document.querySelector('input[name="subreddit-nsfw"]:checked');
+
+  if (searchTerm === '') {
+    showMessage('Please add a search term', 'alert-danger', 'subreddit', 'search-subreddit-container');
+  }
+
+  searchSubredditInput.value = ""; //Search through reddit for subreddits
+
+  ev.preventDefault();
 }); // Show message function
 
-function showMessage(message, className) {
+function showMessage(message, className, parentDivId, insertBeforeDivId) {
   var messageDiv = document.createElement('div'); // Add classes to created div and add text to the message div
 
   messageDiv.className = "alert ".concat(className);
   messageDiv.appendChild(document.createTextNode(message)); // Get parent container and search div
 
-  var searchParentContainer = document.getElementById('search-container');
-  var searchDiv = document.getElementById('search'); // Insert the message
+  var searchParentContainer = document.getElementById(parentDivId);
+  var searchDiv = document.getElementById(insertBeforeDivId); // Insert the message
 
   searchParentContainer.insertBefore(messageDiv, searchDiv); // Hide alert after some time
 

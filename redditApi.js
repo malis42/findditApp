@@ -6,7 +6,7 @@ export default {
             .then(data => data.data.children.map(data => data.data))
             .catch(error => console.log(error))
     },
-    /*searchSubreddit: function (searchTerm, searchLimit) {
+    searchSubreddit: function (searchTerm, searchLimit) {
 
-    }*/
+    }
 };
